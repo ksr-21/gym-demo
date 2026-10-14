@@ -12,6 +12,30 @@ import { cn } from "@/lib/utils";
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string>("");
+
+  // Scroll-spy: highlight the nav link whose section crosses the middle of the viewport
+  useEffect(() => {
+    const targets = siteConfig.nav
+      .map((l) => document.querySelector<HTMLElement>(l.href))
+      .filter((el): el is HTMLElement => el !== null);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) setActive(`#${e.target.id}`);
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    targets.forEach((t) => observer.observe(t));
+    const hero = document.getElementById("hero");
+    const clearAtTop = () => window.scrollY < (hero?.offsetHeight ?? 600) * 0.5 && setActive("");
+    window.addEventListener("scroll", clearAtTop, { passive: true });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", clearAtTop);
+    };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -58,7 +82,12 @@ export function Navbar() {
               <a
                 href={l.href}
                 onClick={go(l.href)}
-                className="text-sm font-medium uppercase tracking-widest text-bone/80 transition-colors hover:text-accent"
+                aria-current={active === l.href ? "location" : undefined}
+                className={cn(
+                  "relative py-1 text-sm font-medium uppercase tracking-widest transition-colors hover:text-accent",
+                  "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:bg-accent after:transition-transform after:duration-300",
+                  active === l.href ? "text-accent after:scale-x-100" : "text-bone/80 after:scale-x-0",
+                )}
               >
                 {l.label}
               </a>
@@ -105,7 +134,11 @@ export function Navbar() {
                   <a
                     href={l.href}
                     onClick={go(l.href)}
-                    className="block border-b border-line py-4 font-display text-4xl uppercase tracking-wide"
+                    aria-current={active === l.href ? "location" : undefined}
+                    className={cn(
+                      "block border-b border-line py-4 font-display text-4xl uppercase tracking-wide",
+                      active === l.href && "text-accent",
+                    )}
                   >
                     {l.label}
                   </a>
