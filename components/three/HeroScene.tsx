@@ -8,6 +8,7 @@ import { Dumbbell } from "./Dumbbell";
 import { ParticleField } from "./ParticleField";
 import { scrollState } from "@/lib/scrollState";
 import { siteConfig } from "@/data/site";
+import { withBase } from "@/lib/utils";
 import type { DeviceProfile } from "@/lib/device";
 
 interface Props {
@@ -82,7 +83,7 @@ export function HeroScene({ profile, animate, light }: Props) {
       <SafeBoundary>
         <Suspense fallback={null}>
           {/* Self-hosted copy of drei's "warehouse" HDRI (no third-party CDN at runtime) */}
-          <Environment files="/hdri/warehouse.hdr" />
+          <Environment files={withBase("/hdri/warehouse.hdr")} />
         </Suspense>
       </SafeBoundary>
 

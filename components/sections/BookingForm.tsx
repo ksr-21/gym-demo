@@ -11,6 +11,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/ui/Icons";
 import { bookingFormSchema, type BookingData, type BookingInput } from "@/lib/validation";
+import { IS_STATIC_EXPORT } from "@/lib/utils";
 import { bookingMessage, whatsappLink } from "@/lib/whatsapp";
 
 const inputBase =
@@ -79,12 +80,15 @@ export function BookingForm() {
     // Open WhatsApp immediately, inside the user's click gesture, so popup blockers allow it.
     window.open(link, "_blank", "noopener,noreferrer");
     try {
+      // Static hosting (GitHub Pages) has no API route; WhatsApp remains the lead channel.
+      if (!IS_STATIC_EXPORT) {
       const res = await fetch("/api/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...data, company }),
       });
       if (!res.ok) throw new Error("Request failed");
+      }
     } catch {
       // The WhatsApp message is the primary channel; log failure shouldn't block the user.
       setServerError("We couldn't log your request online, but your WhatsApp message is ready to send.");

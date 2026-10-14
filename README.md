@@ -1,10 +1,10 @@
-# Ironforge — 3D Gym Website
+# MD Fitness — 3D Gym Website
 
 A production-ready, 3D-animated marketing site for a gym, built to turn visitors into **free-trial bookings** and **WhatsApp inquiries**.
 
 **Stack:** Next.js 14 (App Router, TypeScript) · Tailwind CSS · React Three Fiber + drei · GSAP ScrollTrigger · Lenis · Framer Motion · React Hook Form + Zod
 
-All content shown is **placeholder** ("Ironforge", Koramangala, Bengaluru). Swap it in one file — see below.
+Built for **MD Fitness, Ravet, Pune**. Prices, trainers, reviews, counters and phone are **placeholders** until the owner supplies real details. Swap it in one file — see below.
 
 ---
 
@@ -69,7 +69,15 @@ A hidden honeypot field silently drops basic spam bots.
 
 ---
 
-## 4. Deploy to Vercel
+## 4a. Live demo on GitHub Pages
+
+The repo ships with `.github/workflows/pages.yml`, which builds a static export on every push to `main`.
+
+**One-time setup:** GitHub repo → **Settings → Pages → Build and deployment → Source: _GitHub Actions_.** After the workflow finishes (Actions tab) the site is at <https://ksr-21.github.io/gym-demo/>.
+
+Static hosting has no server, so `/api/book` is not available there — the booking form still opens WhatsApp with the details. Use Vercel (below) for the full version with lead logging.
+
+## 4b. Deploy to Vercel
 
 1. Push this folder to a GitHub repo.
 2. In Vercel: **Add New → Project →** import the repo. Framework is auto-detected (Next.js) — no settings to change.

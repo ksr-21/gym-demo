@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Award } from "lucide-react";
 import { trainers } from "@/data/site";
+import { withBase } from "@/lib/utils";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { InstagramIcon } from "@/components/ui/Icons";
@@ -24,7 +25,7 @@ export function Trainers() {
                 <article className="group relative h-full overflow-hidden border border-line bg-ink focus-within:border-accent hover:border-accent">
                   <div className="relative aspect-[4/5] overflow-hidden">
                     <Image
-                      src={t.image}
+                      src={withBase(t.image)}
                       alt={`${t.name}, ${t.specialisation} trainer`}
                       fill
                       sizes="(min-width:1024px) 25vw, (min-width:640px) 50vw, 100vw"

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
 import { MoveHorizontal } from "lucide-react";
+import { withBase } from "@/lib/utils";
 
 interface Props {
   before: string;
@@ -33,9 +34,9 @@ export function BeforeAfterSlider({ before, after, name }: Props) {
         if (e.currentTarget.hasPointerCapture(e.pointerId)) setFromClientX(e.clientX);
       }}
     >
-      <Image src={after} alt={`${name} after transformation`} fill sizes="(min-width:768px) 28rem, 100vw" className="pointer-events-none object-cover" draggable={false} />
+      <Image src={withBase(after)} alt={`${name} after transformation`} fill sizes="(min-width:768px) 28rem, 100vw" className="pointer-events-none object-cover" draggable={false} />
       <div className="pointer-events-none absolute inset-0" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
-        <Image src={before} alt={`${name} before transformation`} fill sizes="(min-width:768px) 28rem, 100vw" className="object-cover" draggable={false} />
+        <Image src={withBase(before)} alt={`${name} before transformation`} fill sizes="(min-width:768px) 28rem, 100vw" className="object-cover" draggable={false} />
       </div>
       <span className="pointer-events-none absolute left-3 top-3 bg-[#0d0d0d]/80 px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-[#f4f1ea]">Before</span>
       <span className="pointer-events-none absolute right-3 top-3 bg-accent px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-onaccent">After</span>

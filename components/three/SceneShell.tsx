@@ -8,6 +8,7 @@ import { getDeviceProfile, hasWebGL, type DeviceProfile } from "@/lib/device";
 import { useReducedMotion } from "@/lib/hooks";
 import { useTheme } from "@/lib/theme";
 import { siteConfig } from "@/data/site";
+import { withBase } from "@/lib/utils";
 
 const SceneCanvas = dynamic(() => import("./SceneCanvas"), { ssr: false });
 
@@ -92,7 +93,7 @@ export function SceneShell() {
       >
         {status === "fallback" && (
           <Image
-            src="/images/hero-fallback.svg"
+            src={withBase("/images/hero-fallback.svg")}
             alt=""
             fill
             priority
