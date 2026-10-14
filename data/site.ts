@@ -23,7 +23,7 @@ export const siteConfig = {
   geo: { lat: 18.648, lng: 73.737 },
   phone: "+91 98765 43210",
   /** Digits only, with country code, no "+" — used for wa.me links */
-  whatsappNumber: "919876543210",
+  whatsappNumber: "918789548725",
   email: "hello@mdfitness.example",
   brand: {
     /** Primary accent. Drives CSS + 3D scene colours. */
